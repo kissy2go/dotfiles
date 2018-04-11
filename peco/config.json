@@ -1,0 +1,24 @@
+{
+  "InitialFilter": "SmartCase",
+  "KeyMap": {
+    "C-j": "peco.SelectDown",
+    "C-k": "peco.SelectUp"
+  },
+  "Style": {
+    "Basic": [
+      "default", "on_default"
+    ],
+    "Query": [
+      "default", "on_default"
+    ],
+    "Matched": [
+      "red", "on_default", "bold"
+    ],
+    "Selected": [
+      "black", "on_blue"
+    ],
+    "SavedSelection": [
+      "black", "on_white", "underline"
+    ]
+  }
+}

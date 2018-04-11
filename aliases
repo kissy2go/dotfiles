@@ -1,0 +1,65 @@
+#
+# Global aliases
+#
+
+alias -g @L="|less"
+alias -g @H="|head"
+alias -g @T="|tail"
+alias -g @G="|grep"
+alias -g @P="|peco"
+alias -g @GB='"$(git-current-branch)"'
+
+#
+# Command aliases
+#
+
+alias diff="diff -u"
+alias df="df -h"
+alias du="du -h"
+alias j="jobs"
+alias gg="git grep -n"
+alias be="bundle exec"
+alias bi="bundle install --jobs 4"
+
+case $OSTYPE in
+  darwin*)
+    alias -s {png,jpg,jpeg,bmp,pdf,PNG,JPG,JPEG,BMP,PDF}="open -a Preview"
+    ;;
+esac
+
+if type nkf &>/dev/null; then
+  alias utf8="nkf -w"
+  alias sjis="nkf -s"
+  alias euc="nkf -e"
+  alias jis="nkf -j"
+elif type iconv &>/dev/null; then
+  alias utf8="iconv -t UTF8"
+  alias sjis="iconv -t SJIS"
+  alias euc="iconv -t EUCJP"
+  alias jis="iconv -t ISO2022JP"
+fi
+
+if ! type tac &>/dev/null; then
+  if type gtac &>/dev/null; then
+    # Use GNU coreutils
+    alias tac="gtac"
+  else
+    alias tac="tail -r"
+  fi
+fi
+
+if type colordiff &>/dev/null; then
+  alias diff="colordiff -u"
+fi
+
+if type grc &>/dev/null; then
+  alias mount="grc mount"
+  alias mount="grc ifconfig"
+  alias mount="grc dig"
+  alias mount="grc netstat"
+  alias mount="grc ping"
+  alias mount="grc ps"
+fi
+
+# Source local aliases
+[[ -f "$HOME/.aliases.local" ]] && source "$HOME/.aliases.local"

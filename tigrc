@@ -1,0 +1,27 @@
+#
+# General
+#
+
+# View commit ID on left
+set main-view = id:width=8 date author commit-title:graph=yes,refs=yes
+
+# Split view
+set vertical-split    = no  # Split horizonal
+set split-view-height = 90% # Split view height
+
+# View number of lines before/after diff
+set diff-context = 6
+
+#
+# Key bindings
+#
+
+# Disable default key bindings
+bind generic g none # Disable grep
+bind generic G none # Disable `git gc`
+
+# Keybindings like vim
+bind generic g        move-first-line
+bind generic G        move-last-line
+bind generic <Ctrl-b> scroll-page-up
+bind generic <Ctrl-f> scroll-page-down

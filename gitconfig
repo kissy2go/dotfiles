@@ -1,0 +1,12 @@
+[color]
+  ui = auto
+[alias]
+  st = "status"
+  fpr = "fetch-pull-request"
+  copr = "checkout-pull-request"
+[core]
+  excludesfile = ~/.gitignore
+[include]
+  path = ~/.dotfiles-local/gitconfig.local
+[commit]
+  template = ~/.gitmessage.txt

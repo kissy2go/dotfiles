@@ -1,0 +1,9 @@
+#!/bin/sh
+
+while (( $# > 0 )); do
+  [[ -n "$args" ]] && args+=","
+  args+=$1
+  shift
+done
+
+curl -sL https://www.gitignore.io/api/$args

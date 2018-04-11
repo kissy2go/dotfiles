@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ruby -r json -e 's = STDIN.read; jj(JSON.parse!(s)) rescue puts s'

@@ -1,0 +1,81 @@
+#!/bin/sh
+
+set -e
+
+PROGNAME=$(basename $0)
+
+function usage() {
+  echo "Usage:"
+  echo "  $PROGNAME [-i|--interactive] [-f|--force] <file>"
+  echo
+  echo "Description:"
+  echo "  Convert PNG to JPEG image."
+  echo
+  echo "Options:"
+  echo "  -i, --interactive"
+  echo "    Request confirmation before attempting to remove each png file."
+  echo "    The -i option overrides any previous -f options."
+  echo
+  echo "  -f, --force"
+  echo "    Attempt to remove the files without prompting for confirmation."
+  echo "    The -f option overrides any previous -i options."
+  echo
+  echo "  -h, --help"
+  echo "    Print this usage."
+}
+
+interactive=true
+
+while (( $# > 0 )); do
+  case "$1" in
+    -i | --interactive)
+      interactive=true
+      shift
+      ;;
+    -f | --force)
+      interactive=false
+      shift
+      ;;
+    -h | --help)
+      usage && exit
+      ;;
+    -*)
+      echo "Illegal option -- '$(echo $1 | sed 's/^-*//''')'" 1>&2
+      exit 1
+      ;;
+    *)
+      argv+=":$(cd $(dirname $1); pwd)/$(basename $1)"
+      shift
+      ;;
+  esac
+done
+
+for src in $argv; do
+  dir="${dirname $1}"
+  srcname="${basename $1}"
+  dstname="${srcname%.*}.jpg"
+  sips -s format jpeg "$dir/$srcname" --out "$dir/$dstname"
+  echo "converted ${dir}/{$srcname ==> $dstname}"
+
+  if $interactive; then
+    printf "remove $dir/$srcname? "
+    read ans
+    case "$ans" in
+      y | yes)
+        ;;
+      *)
+        continue
+        ;;
+    esac
+  fi
+
+  if type rmtrash >/dev/null 2>&1; then
+    rmtrash "$dir/$srcname"
+    echo "moved $dir/$srcname to trash"
+  else
+    rm -f "$dir/$srcname"
+    echo "removed $dir/$srcname"
+  fi
+
+  shift
+done

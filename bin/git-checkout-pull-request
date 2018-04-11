@@ -1,0 +1,28 @@
+#!/bin/sh
+
+SUBCOMMAND="${0##*git-}"
+
+function usage() {
+  echo "Usage:"
+  echo "  git $SUBCOMMAND [<remote>] <pull_request_number>"
+  echo
+  echo "Description:"
+  echo "  Fetch and checkout pull request."
+}
+
+case $# in
+  1)
+    remote=origin
+    pr=$1
+    ;;
+  2)
+    remote=$1
+    pr=$2
+    ;;
+  *)
+    usage && exit 1
+    ;;
+esac
+
+git fetch-pull-request $remote $pr
+git checkout pull/$pr
