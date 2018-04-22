@@ -1,17 +1,10 @@
 #
-# Anyenv
+# xxenv
 #
-if [[ -d "$HOME/.anyenv" ]]; then
-  export PATH="$HOME/.anyenv/bin:$PATH"
-  eval "$(anyenv init -)"
-
-  # For tmux and vscode compatibles
-  # @see http://monmon.hateblo.jp/entry/2013/12/13/233242
-  # @see https://dev.classmethod.jp/tool/anyenv-set-path-for-visual-studio-code/
-  for xenv in `ls $HOME/.anyenv/envs`; do
-    export PATH="$HOME/.anyenv/envs/$xenv/shims:$PATH"
-  done
-fi
+type rbenv &>/dev/null && eval "$(rbenv init -)"
+type nodenv &>/dev/null && eval "$(nodenv init -)"
+type pyenv &>/dev/null && eval "$(pyenv init -)"
+type pyenv-virtualenv &>/dev/null && eval "$(pyenv virtualenv-init -)"
 
 #
 # Direnv
