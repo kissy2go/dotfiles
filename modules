@@ -4,6 +4,10 @@
 type rbenv &>/dev/null && eval "$(rbenv init -)"
 type nodenv &>/dev/null && eval "$(nodenv init -)"
 type pyenv &>/dev/null && eval "$(pyenv init -)"
+type pipenv &>/dev/null && eval "$(pipenv --completion)"
+
+# Use .venv in project directory
+export PIPENV_VENV_IN_PROJECT=1
 
 #
 # Direnv
