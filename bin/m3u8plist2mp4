@@ -1,0 +1,17 @@
+#!/bin/bash
+
+while [ "$1" != "" ]; do
+  src="$1"
+  dst="${1%.*}.mp4"
+
+  ffmpeg \
+    -protocol_whitelist file,http,https,tcp,tls \
+    -i "$src" \
+    -movflags faststart \
+    -c copy \
+    -bsf:a aac_adtstoasc \
+    "$dst" \
+    && rm -f "$src"
+
+  shift
+done
