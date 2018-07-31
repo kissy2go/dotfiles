@@ -1,6 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
+
+IFS_bak=$IFS
+IFS=$'\n'
+
+function on_exit() {
+  IFS=$IFS_bak
+}
+
+trap on_exit EXIT
+trap 'trap - EXIT; on_exit; exit -1' INT PIPE TERM
 
 PROGNAME=$(basename $0)
 
@@ -26,6 +36,7 @@ function usage() {
 
 interactive=true
 
+declare -a filelist=()
 while (( $# > 0 )); do
   case "$1" in
     -i | --interactive)
@@ -44,15 +55,15 @@ while (( $# > 0 )); do
       exit 1
       ;;
     *)
-      argv+=":$(cd $(dirname $1); pwd)/$(basename $1)"
+      filelist=("${list[@]}" "$(cd $(dirname $1); pwd)/$(basename $1)")
       shift
       ;;
   esac
 done
 
-for src in $argv; do
-  dir="${dirname $1}"
-  srcname="${basename $1}"
+for src in ${filelist[@]}; do
+  dir="$(dirname $src)"
+  srcname="$(basename $src)"
   dstname="${srcname%.*}.jpg"
   sips -s format jpeg "$dir/$srcname" --out "$dir/$dstname"
   echo "converted ${dir}/{$srcname ==> $dstname}"
@@ -76,6 +87,4 @@ for src in $argv; do
     rm -f "$dir/$srcname"
     echo "removed $dir/$srcname"
   fi
-
-  shift
 done
