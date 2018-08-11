@@ -37,7 +37,7 @@ function usage() {
 interactive=true
 
 declare -a filelist=()
-while (( $# > 0 )); do
+while [ "$1" != "" ]; do
   case "$1" in
     -i | --interactive)
       interactive=true
