@@ -55,7 +55,7 @@ while [ "$1" != "" ]; do
       exit 1
       ;;
     *)
-      filelist=("${list[@]}" "$(cd $(dirname $1); pwd)/$(basename $1)")
+      filelist=("${filelist[@]}" "$(cd $(dirname $1); pwd)/$(basename $1)")
       shift
       ;;
   esac
