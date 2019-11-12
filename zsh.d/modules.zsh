@@ -225,5 +225,17 @@ zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'
 # behavior.
 # zstyle ':prezto:module:utility' safe-ops 'yes'
 
+#
+# Set zsh-notify module
+#
+zplug 'marzocchi/zsh-notify', use:"notify.plugin.zsh"
+
 # Load modules
 type zplug &>/dev/null && zplug load
+
+#
+# Configure zsh-notify module
+#
+zstyle ':notify:*' error-title "Command failed (in #{time_elapsed} seconds)"
+zstyle ':notify:*' success-title "Command finished (in #{time_elapsed} seconds)"
+zstyle ':notify:*' command-complete-timeout 30
