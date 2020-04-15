@@ -83,3 +83,10 @@ export HISTSIZE=1000
 
 # Set the num of histories that saves in file.
 export SAVEHIST=100000
+
+#
+# Homebrew
+#
+
+# Disable auto update.
+export HOMEBREW_NO_AUTO_UPDATE=yes
